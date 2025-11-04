@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Cover Page</title>
+    <style>
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f8f8f8;
+        }
+
+        .page-container {
+            width: 8.27in;
+            height: 11.69in;
+            padding: 0.8in;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #fff;
+            border: 3px solid #000; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo-area {
+            margin: 0 auto 10px;
+        }
+    
+        .university-logo {
+            width: 200px; 
+            height: auto; 
+            display: block; 
+            margin: 0 auto; 
+        }
+
+        .university-name {
+            font-family: Georgia, serif;
+            font-size: 32pt;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+
+        .department {
+            font-style: italic;
+            font-size: 14pt;
+            margin: 0 0 40px 0;
+        }
+
+        .assignment-info {
+            margin-bottom: 40px;
+        }
+
+        .assignment-title {
+            font-size: 24pt;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+        }
+
+        .assignment-info p {
+            font-size: 14pt;
+            margin: 5px 0;
+        }
+
+        .submitted-to {
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .section-heading {
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .submission-section p {
+            font-size: 14pt;
+            margin: 5px 0;
+            line-height: 1.4;
+        }
+
+        .submission-date {
+            font-style: italic;
+            font-size: 14pt;
+        }
+
+        p b {
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background: none;
+            }
+
+            .page-container {
+                border: 3px solid #000;
+                box-shadow: none;
+                margin: 0;
+                padding: 0.5in;
+                height: 100vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        
+        <div class="logo-area">
+            <img src="pu_logo.png" alt="Presidency University Logo" class="university-logo">
+        </div>
+
+        <h1 class="university-name">Presidency University</h1>
+        <p class="department">Department of Computer Science & Engineering</p>
+
+        <div class="assignment-info">
+            <h2 class="assignment-title">Assignment</h2>
+            <p>Course Title: <b>Calculus I</b></p>
+            <p>Course Code: <b>MAT123</b></p>
+        </div>
+
+        <div class="submission-section submitted-to">
+            <h3 class="section-heading">Submitted to:</h3>
+            <p><b>Nafia Mollik</b></p>
+            <p>Lecturer</p>
+            <p>Department of Computer Science & Engineering</p>
+            <p>Presidency University</p>
+        </div>
+
+        <div class="submission-section submitted-by">
+            <h3 class="section-heading">Submitted by:</h3>
+            <p><b>Mahmudul Hasan Bappy</b></p>
+            <p>ID: <b>252755038</b></p>
+            <p>Section: <b>03</b></p>
+        </div>
+
+        <p class="submission-date">Date of Submission: <b>28/10/2025</b></p>
+    </div>
+</body>
+
+</html>

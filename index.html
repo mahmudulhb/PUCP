@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PU | Cover page generator</title>
+    <link rel="icon" type="image/png" href="fav.png">
+
+    <style>
+        /* Loading Screen Styles */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .loading-text {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #000000;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: default;
+        }
+
+        .header-logo {
+            height: 50px;
+            width: auto;
+            pointer-events: none;
+        }
+
+        .header-texts {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.1;
+        }
+
+        .header-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000000;
+            margin: 0;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            font-style: italic;
+            color: #555;
+            margin: 0;
+        }
+
+        .header-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .creator {
+            margin: 0;
+            padding: 0;
+        }
+
+        .creator-link {
+            text-decoration: none;
+            color: #000000;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .creator-link:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 20px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .form-container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            margin: 0;
+            text-align: left;
+            order: 1;
+            flex-grow: 1;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px 0;
+            font-weight: bold;
+            font-size: 14px;
+            width: 100%;
+            text-align: left;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        input,
+        select {
+            width: 100%;
+            max-width: none;
+            padding: 8px;
+            margin: 5px 0;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input::placeholder {
+            color: #e0e0e0;
+            opacity: 1;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 16px;
+            padding-right: 30px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            max-width: 450px;
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px auto;
+            display: block;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1a1a1a;
+        }
+
+        .page-container {
+            order: 3;
+            position: relative;
+            width: 8.27in;
+            height: 11.69in;
+            padding: 0.8in;
+            box-sizing: border-box;
+            text-align: center;
+            background-color: #fff;
+            border: 3px solid #000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .preview-label {
+            position: absolute;
+            top: 20px;
+            right: 0;
+            background-color: #000000;
+            color: white;
+            padding: 5px 15px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            z-index: 10;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%, 15% 0);
+        }
+
+        .logo-area {
+            margin: 0 auto 10px;
+        }
+
+        .university-logo {
+            width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .university-name {
+            font-family: Georgia, serif;
+            font-size: 32pt;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .department {
+            font-style: italic;
+            font-size: 14pt;
+            margin: -5px 0 20px 0;
+            line-height: 1;
+            display: block;
+            transform: translateY(-8px);
+        }
+
+        .assignment-info {
+            margin-bottom: 40px;
+        }
+
+        .assignment-title {
+            font-size: 24pt;
+            font-weight: bold;
+            margin: 0 0 20px 0;
+        }
+
+        .assignment-info p {
+            font-size: 14pt;
+            margin: 5px 0;
+        }
+
+        .section-heading {
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 0 0 10px 0;
+        }
+
+        .submission-section p {
+            font-size: 14pt;
+            margin: 4px 0;
+            line-height: 1.2;
+        }
+
+        .submission-date {
+            font-style: italic;
+            font-size: 14pt;
+        }
+
+        #pReportTitle {
+            font-weight: bold;
+            font-size: 16pt;
+            margin: 8px 0 15px 0;
+            display: none;
+        }
+
+        .shortcut {
+            font-weight: bold;
+            background-color: #eee;
+            padding: 2px 5px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .page-container,
+            .page-container * {
+                visibility: visible;
+            }
+
+            .page-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                border: 3px solid #000;
+                box-shadow: none;
+            }
+
+            .preview-label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <img src="pu_logo.png" alt="Presidency University Logo" class="loading-logo">
+        <div class="loading-text">Presidency University</div>
+        <div class="loading-subtext">Cover Page Generator</div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <header>
+        <div class="header-left">
+            <img src="pu_logo.png" alt="PU Logo" class="header-logo">
+            <div class="header-texts">
+                <span class="header-title">Presidency University</span>
+                <span class="header-subtitle">Cover Page Generator</span>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <p class="creator"><span class="header-subtitle">A creation of </span><a
+                    href="https://www.facebook.com/27mhb" target="_blank" class="creator-link"><span>
+                        MHB</span></a></p>
+        </div>
+    </header>
+
+    <main>
+        <div id="main-content" style="width: 100%; max-width: 1400px; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 20px;">
+            <div class="form-container">
+                <h2>Enter Your Info</h2>
+                <div class="form-group">
+                    <label for="department">Department Name:</label>
+                    <select id="department">
+                        <option value="Department of Computer Science & Engineering">Computer Science & Engineering
+                        </option>
+                        <option value="Department of Electrical & Electronic Engineering">Electrical & Electronic
+                            Engineering</option>
+                        <option value="Department of Business Administration">Business Administration</option>
+                        <option value="Department of Law">Law</option>
+                        <option value="Department of English">English</option>
+                        <option value="Department of Economics">Economics</option>
+                        <option value="Department of Civil Engineering">Civil Engineering</option>
+                        <option value="Other">Other (Enter below)</option>
+                    </select>
+                    <input type="text" id="department-other" placeholder="Enter other department (if 'Other' selected)"
+                        style="display:none; margin-top: 5px;">
+                </div>
+
+                <div class="form-group">
+                    <label for="reportType">Report Type (e.g., Assignment):</label>
+                    <select id="reportType">
+                        <option value="Assignment">Assignment</option>
+                        <option value="Lab Report">Lab Report</option>
+                        <option value="Project">Project</option>
+                        <option value="Term Paper">Term Paper</option>
+                        <option value="Thesis Paper">Thesis Paper</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reportTitle">Report Title (Optional):</label>
+                    <input type="text" id="reportTitle" placeholder="Design and Implementation of Cover Page Maker">
+                </div>
+
+                <div class="form-group">
+                    <label for="courseTitle">Course Title:</label>
+                    <input type="text" id="courseTitle" placeholder="Calculus I">
+                </div>
+
+                <div class="form-group">
+                    <label for="courseCode">Course Code:</label>
+                    <input type="text" id="courseCode" placeholder="MAT123">
+                </div>
+
+                <div class="form-group">
+                    <label for="teacherName">Teacher Name:</label>
+                    <input type="text" id="teacherName" placeholder="Nafia Mollik">
+                </div>
+
+                <div class="form-group">
+                    <label for="designation">Designation:</label>
+                    <select id="designation">
+                        <option value="Lecturer">Lecturer</option>
+                        <option value="Senior Lecturer">Senior Lecturer</option>
+                        <option value="Assistant Professor">Assistant Professor</option>
+                        <option value="Associate Professor">Associate Professor</option>
+                        <option value="Professor">Professor</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="studentName">Student Name:</label>
+                    <input type="text" id="studentName" placeholder="MHB">
+                </div>
+
+                <div class="form-group">
+                    <label for="studentID">Student ID:</label>
+                    <input type="text" id="studentID" placeholder="252***038">
+                </div>
+
+                <div class="form-group">
+                    <label for="section">Section:</label>
+                    <input type="text" id="section" placeholder="03">
+                </div>
+
+                <div class="form-group">
+                    <label for="submissionDate">Date of Submission:</label>
+                    <input type="date" id="submissionDate">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn" onclick="window.print()" title="Shortcut: Ctrl+P">Print Cover Page</button>
+                    <button class="btn" onclick="resetForm()" title="Shortcut: Ctrl+R">Reset Form</button>
+                </div>
+            </div>
+
+            <div class="page-container" id="coverPage">
+                <div class="preview-label">Print Preview</div>
+                <div class="logo-area">
+                    <img src="pu_logo.png" alt="Presidency University Logo" class="university-logo">
+                </div>
+
+                <h1 class="university-name">Presidency University</h1>
+                <p class="department" id="pDepartment">Department of Computer Science & Engineering</p>
+
+                <div class="assignment-info">
+                    <h2 class="assignment-title" id="pReportType">Assignment</h2>
+                    <p id="pReportTitle"></p>
+                    <p>Course Title: <b id="pCourseTitle">Calculus I</b></p>
+                    <p>Course Code: <b id="pCourseCode">MAT123</b></p>
+                </div>
+
+                <div class="submission-section submitted-to">
+                    <h3 class="section-heading">Submitted to:</h3>
+                    <p><b id="pTeacherName">Nafia Mollik</b></p>
+                    <p id="pDesignation">Lecturer</p>
+                    <p id="pSubmittedDepartment">Department of Computer Science & Engineering</p>
+                    <p>Presidency University</p>
+                </div>
+
+                <div class="submission-section submitted-by">
+                    <h3 class="section-heading">Submitted by:</h3>
+                    <p><b id="pStudentName">MHB</b></p>
+                    <p>ID: <b id="pStudentID">252***038</b></p>
+                    <p>Section: <b id="pSection">03</b></p>
+                </div>
+
+                <p class="submission-date">Date of Submission: <b id="pDate">28 October 2025</b></p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Loading screen functionality
+        window.addEventListener('load', function() {
+            // Simulate loading time (you can remove this in production)
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loading-screen');
+                loadingScreen.style.opacity = '0';
+                
+                setTimeout(function() {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1500); // Adjust this time as needed
+        });
+
+        function getInputValue(id, defaultValue) {
+            const element = document.getElementById(id);
+            if (!element) return defaultValue;
+
+            if (id === "department") {
+                const selectValue = element.value;
+                const otherInput = document.getElementById("department-other");
+
+                if (selectValue === "Other") {
+                    otherInput.style.display = 'block';
+                    return otherInput.value.trim() || otherInput.placeholder.trim() || defaultValue;
+                } else {
+                    otherInput.style.display = 'none';
+                    return selectValue || defaultValue;
+                }
+            }
+
+            const trimmedValue = element.value.trim();
+            const placeholder = element.placeholder ? element.placeholder.trim() : '';
+
+            return trimmedValue || placeholder || defaultValue;
+        }
+
+        function updateCover() {
+            const dept = getInputValue("department", "Department of Computer Science & Engineering");
+            const reportType = getInputValue("reportType", "Assignment");
+            const reportTitle = document.getElementById("reportTitle").value.trim();
+            const courseTitle = getInputValue("courseTitle", "Calculus I");
+            const courseCode = getInputValue("courseCode", "MAT123");
+            const teacherName = getInputValue("teacherName", "Nafia Mollik");
+            const designation = getInputValue("designation", "Lecturer");
+            const studentName = getInputValue("studentName", "MHB");
+            const studentID = getInputValue("studentID", "252***038");
+            const section = getInputValue("section", "03");
+            const dateInput = document.getElementById("submissionDate").value;
+
+            const pReportTitleElement = document.getElementById("pReportTitle");
+
+            if (reportTitle) {
+                pReportTitleElement.innerText = reportTitle;
+                pReportTitleElement.style.display = 'block';
+            } else {
+                pReportTitleElement.innerText = "";
+                pReportTitleElement.style.display = 'none';
+            }
+
+            document.getElementById("pDepartment").innerText = dept;
+            document.getElementById("pSubmittedDepartment").innerText = dept;
+            document.getElementById("pReportType").innerText = reportType;
+            document.getElementById("pCourseTitle").innerText = courseTitle;
+            document.getElementById("pCourseCode").innerText = courseCode;
+            document.getElementById("pTeacherName").innerText = teacherName;
+            document.getElementById("pDesignation").innerText = designation;
+            document.getElementById("pStudentName").innerText = studentName;
+            document.getElementById("pStudentID").innerText = studentID;
+            document.getElementById("pSection").innerText = section;
+
+            let formattedDate = "28 October 2025";
+            if (dateInput) {
+                const [year, month, day] = dateInput.split('-').map(Number);
+                const dateObj = new Date(year, month - 1, day);
+
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                formattedDate = dateObj.toLocaleDateString('en-GB', options);
+            }
+            document.getElementById("pDate").innerText = formattedDate;
+        }
+
+        function resetForm() {
+            document.querySelectorAll('.form-container input, .form-container select').forEach(element => {
+                if (element.tagName === 'INPUT' && element.type !== 'date') {
+                    element.value = "";
+                } else if (element.tagName === 'SELECT') {
+                    element.selectedIndex = 0;
+                } else if (element.type === 'date') {
+                    element.value = "";
+                }
+            });
+            document.getElementById("department-other").style.display = 'none';
+            updateCover();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const formControls = document.querySelectorAll('.form-container input, .form-container select');
+
+            formControls.forEach(control => {
+                control.addEventListener('input', updateCover);
+                control.addEventListener('change', updateCover);
+            });
+
+            updateCover();
+            const headerLeft = document.querySelector('.header-left');
+            if (headerLeft) {
+                headerLeft.addEventListener('click', function (e) {
+                    e.preventDefault();
+                });
+            }
+
+            document.addEventListener('keydown', function (e) {
+                if (e.ctrlKey || e.metaKey) {
+                    switch (e.key.toLowerCase()) {
+                        case 'p':
+                            e.preventDefault();
+                            window.print();
+                            break;
+                        case 'r':
+                            e.preventDefault();
+                            resetForm();
+                            break;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
