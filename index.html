@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PU | Cover page generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>PU | Academic Tools Suite</title>
     <link rel="icon" type="image/png" href="fav.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* Loading Screen Styles */
@@ -56,16 +57,30 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
+        /* Header and Navigation */
         body {
             font-family: 'Times New Roman', Times, serif;
             margin: 0;
@@ -87,6 +102,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             width: 100%;
             box-sizing: border-box;
+            flex-wrap: wrap;
         }
 
         .header-left {
@@ -94,6 +110,7 @@
             align-items: center;
             gap: 10px;
             cursor: default;
+            flex-shrink: 0;
         }
 
         .header-logo {
@@ -122,11 +139,62 @@
             margin: 0;
         }
 
+        /* Navigation Styles */
+        .header-nav {
+            margin: 0 20px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            flex: 1;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .nav-item.active .nav-link {
+            background: linear-gradient(135deg, #000000, #2c3e50);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-item:not(.active) .nav-link:hover {
+            background: rgba(0, 0, 0, 0.05);
+            color: #000000;
+        }
+
         .header-right {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
             text-align: right;
+            flex-shrink: 0;
         }
 
         .creator {
@@ -145,9 +213,9 @@
             text-decoration: underline;
         }
 
+        /* Main Content */
         main {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
             align-items: flex-start;
             gap: 20px;
@@ -156,96 +224,291 @@
             max-width: 1400px;
         }
 
+        #main-content {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        /* Cover Page Maker Styles */
+        .cover-maker-container {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 20px;
+        }
+
+        /* Form Container Styles */
         .form-container {
             background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px;
+            border-radius: 12px;
+            padding: 25px 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            width: 100%;
+            max-width: 480px;
             margin: 0;
             text-align: left;
             order: 1;
-            flex-grow: 1;
+            height: 11.69in;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e5e5e5;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #000000, #333333);
         }
 
         .form-container h2 {
             text-align: center;
             color: #000000;
-            margin-bottom: 15px;
+            margin: 0 0 20px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            letter-spacing: -0.5px;
+        }
+
+        .form-container h2::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #000000;
+            border-radius: 2px;
+        }
+
+        .form-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-bottom: 20px;
+        }
+
+        .form-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .form-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .form-content::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .form-content::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
         }
 
         .form-group {
-            margin-top: 10px;
+            margin: 15px 0;
             text-align: left;
+            position: relative;
         }
 
         label {
             display: block;
-            margin: 10px 0 5px 0;
+            margin: 0 0 8px 0;
             font-weight: bold;
             font-size: 14px;
             width: 100%;
             text-align: left;
             padding: 0;
             box-sizing: border-box;
+            color: #2c3e50;
+            letter-spacing: 0.3px;
+            transition: color 0.3s ease;
+        }
+
+        #department + label::after,
+        #reportType + label::after,
+        #courseTitle + label::after,
+        #courseCode + label::after,
+        #teacherName + label::after,
+        #designation + label::after,
+        #studentName + label::after,
+        #studentID + label::after,
+        #section + label::after {
+            content: ' *';
+            color: #e74c3c;
+            opacity: 0.8;
+        }
+
+        #reportTitle + label::after,
+        #submissionDate + label::after {
+            content: '';
         }
 
         input,
         select {
             width: 100%;
-            max-width: none;
-            padding: 8px;
-            margin: 5px 0;
+            padding: 10px 12px;
+            margin: 3px 0 0 0;
             display: block;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
             font-size: 14px;
             box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            color: #2c3e50;
+            line-height: 1.4;
+        }
+
+        input:hover,
+        select:hover {
+            border-color: #bdc3c7;
+            background-color: #fff;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #000000;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
         }
 
         input::placeholder {
-            color: #e0e0e0;
+            color: #95a5a6;
             opacity: 1;
+            font-style: italic;
+        }
+
+        input[type="date"] {
+            padding: 9px 12px;
+            background-color: #fff;
         }
 
         select {
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
-            background-position: right 10px top 50%;
-            background-size: 16px;
-            padding-right: 30px;
+            background-position: right 12px top 50%;
+            background-size: 14px;
+            padding-right: 35px;
+            cursor: pointer;
         }
 
         .btn-group {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            margin-top: 15px;
+            align-items: stretch;
+            margin-top: auto;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #eaeaea;
         }
 
         .btn {
             width: 100%;
-            max-width: 450px;
-            background-color: #000000;
+            background: linear-gradient(135deg, #000000, #2c3e50);
             color: #fff;
             border: none;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 5px auto;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 0;
             display: block;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            font-family: 'Times New Roman', Times, serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         .btn:hover {
-            background-color: #1a1a1a;
+            background: linear-gradient(135deg, #2c3e50, #000000);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
+        .btn:hover::after {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Reset button for Cover Page */
+        .reset-btn-cover {
+            background: linear-gradient(135deg, #6c757d, #495057) !important;
+        }
+
+        .reset-btn-cover:hover {
+            background: linear-gradient(135deg, #5a6268, #343a40) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .reset-btn-cover:hover::after {
+            left: 100%;
+        }
+
+        .reset-btn-cover:active {
+            transform: translateY(0);
+        }
+
+        #department-other {
+            margin-top: 8px;
+            border-top: 2px dashed #ddd;
+            border-radius: 0 0 8px 8px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Page Container Styles */
         .page-container {
             order: 3;
             position: relative;
@@ -344,14 +607,550 @@
             display: none;
         }
 
-        .shortcut {
-            font-weight: bold;
-            background-color: #eee;
-            padding: 2px 5px;
-            border-radius: 3px;
-            white-space: nowrap;
+        /* Installment Calculator Styles */
+        .calculator-container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            max-width: 1000px;
+            display: none;
         }
 
+        .calculator-title {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 5px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .calculator-subtitle {
+            text-align: center;
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .calculator-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .calculator-inputs {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .calculator-results {
+            flex: 1;
+            min-width: 300px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            padding: 25px;
+            border: 1px solid #ddd;
+        }
+
+        .input-group-calc {
+            margin-bottom: 20px;
+        }
+
+        .input-group-calc label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #000;
+            font-size: 15px;
+        }
+
+        .input-group-calc label i {
+            margin-right: 8px;
+            color: #666;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 16px;
+        }
+
+        .calculator-inputs input[type="number"] {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: 'Times New Roman', Times, serif;
+            background: #fff;
+        }
+
+        .calculator-inputs input[type="number"]:focus {
+            border-color: #000;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+        }
+
+        .checkbox-container-calc {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .checkbox-container-calc input {
+            margin-right: 12px;
+            width: 18px;
+            height: 18px;
+            accent-color: #000;
+            cursor: pointer;
+        }
+
+        .checkbox-container-calc label {
+            font-weight: normal;
+            margin: 0;
+            color: #000;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .calc-btn {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background: #000;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .calc-btn:hover {
+            background: #333;
+        }
+
+        .calc-btn i {
+            margin-right: 8px;
+        }
+
+        /* Calculator Reset Button */
+        .reset-btn {
+            background: linear-gradient(135deg, #6c757d, #495057) !important;
+        }
+
+        .reset-btn:hover {
+            background: linear-gradient(135deg, #5a6268, #343a40) !important;
+        }
+
+        /* Calculator Button Group */
+        .btn-group-calc {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-group-calc .calc-btn {
+            flex: 1;
+            margin: 0;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .results-header h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #000;
+        }
+
+        .total-amount {
+            background: #000;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .total-amount .amount {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .installments-container {
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .installment-card {
+            background: white;
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            border-left: 5px solid #000;
+            transition: all 0.3s;
+        }
+
+        .installment-card:hover {
+            border-color: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .installment-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #000;
+            font-size: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .installment-amount {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .percentage-badge {
+            background: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: #000;
+            font-weight: bold;
+            border: 1px solid #ddd;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            text-align: center;
+            color: #666;
+        }
+
+        .empty-state i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.7;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            max-width: 300px;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .info-footer {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            margin-top: 20px;
+        }
+
+        .info-footer i {
+            margin-right: 5px;
+        }
+
+        /* Scrollbar Styling */
+        .installments-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .installments-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .installments-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        .installments-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .installment-card {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .form-container {
+                max-width: 450px;
+                padding: 20px 25px;
+                height: 10.5in;
+            }
+            
+            .page-container {
+                width: 7.5in;
+                height: 10.5in;
+            }
+        }
+
+        @media (max-width: 992px) {
+            header {
+                flex-wrap: wrap;
+                padding-bottom: 15px;
+            }
+            
+            .header-nav {
+                order: 3;
+                width: 100%;
+                margin: 10px 0 0 0;
+            }
+            
+            .nav-list {
+                justify-content: center;
+            }
+            
+            .nav-link {
+                padding: 10px 15px;
+                font-size: 13px;
+            }
+            
+            .form-container {
+                max-width: 420px;
+                padding: 18px 22px;
+                height: 9.5in;
+            }
+            
+            .form-container h2 {
+                font-size: 22px;
+            }
+            
+            .page-container {
+                width: 7in;
+                height: 9.5in;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calculator-content {
+                flex-direction: column;
+            }
+            
+            .results-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .total-amount {
+                width: 100%;
+            }
+            
+            .nav-list {
+                width: 100%;
+                justify-content: stretch;
+            }
+            
+            .nav-link {
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+            
+            .form-container {
+                width: 95%;
+                max-width: none;
+                padding: 20px;
+                margin: 15px auto;
+                order: 2;
+                border-radius: 10px;
+                height: auto;
+                min-height: auto;
+            }
+            
+            .form-content {
+                overflow-y: visible;
+                margin-bottom: 15px;
+            }
+            
+            .form-container h2 {
+                font-size: 20px;
+                margin-bottom: 18px;
+            }
+            
+            .form-group {
+                margin: 18px 0;
+            }
+            
+            input, select {
+                padding: 14px 16px;
+                font-size: 16px !important;
+                min-height: 48px;
+                border-radius: 10px;
+            }
+            
+            input[type="text"],
+            input[type="date"],
+            select {
+                font-size: 16px !important;
+            }
+            
+            input:active,
+            select:active {
+                transform: scale(0.98);
+            }
+            
+            select {
+                background-position: right 16px top 50%;
+                background-size: 18px;
+                padding-right: 45px;
+            }
+            
+            label {
+                font-size: 15px;
+                margin-bottom: 10px;
+            }
+            
+            .btn {
+                padding: 16px 20px;
+                font-size: 16px;
+                min-height: 56px;
+            }
+            
+            .btn-group {
+                margin-top: 20px;
+                gap: 10px;
+            }
+            
+            .page-container {
+                order: 1;
+                width: 95%;
+                height: auto;
+                aspect-ratio: 8.27 / 11.69;
+                padding: 0.6in;
+                margin: 10px auto;
+            }
+            
+            .btn-group-calc {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calculator-container {
+                padding: 15px;
+            }
+            
+            .calculator-inputs input[type="number"] {
+                padding: 10px 10px 10px 35px;
+                font-size: 14px;
+            }
+            
+            .installment-card {
+                padding: 15px;
+            }
+            
+            .installment-amount {
+                font-size: 18px;
+            }
+            
+            .nav-link {
+                padding: 10px 8px;
+                font-size: 11px;
+            }
+            
+            .header-title {
+                font-size: 18px;
+            }
+            
+            .header-subtitle {
+                font-size: 12px;
+            }
+            
+            .form-container {
+                padding: 20px 15px;
+                margin: 10px;
+                width: calc(100% - 20px);
+            }
+            
+            input, select {
+                padding: 12px 14px;
+                font-size: 15px;
+                min-height: 44px;
+            }
+            
+            .btn {
+                padding: 14px 18px;
+                min-height: 50px;
+            }
+            
+            .form-group {
+                margin: 16px 0;
+            }
+            
+            .page-container {
+                padding: 0.4in;
+                border-width: 2px;
+            }
+            
+            .university-name {
+                font-size: 24pt;
+            }
+            
+            .department {
+                font-size: 12pt;
+            }
+            
+            .assignment-title {
+                font-size: 20pt;
+            }
+            
+            .assignment-info p,
+            .submission-section p,
+            .submission-date {
+                font-size: 12pt;
+            }
+            
+            .section-heading {
+                font-size: 16pt;
+            }
+            
+            .university-logo {
+                width: 150px;
+            }
+        }
+
+        /* Print styles */
         @media print {
             body * {
                 visibility: hidden;
@@ -368,6 +1167,9 @@
                 top: 0;
                 border: 3px solid #000;
                 box-shadow: none;
+                width: 8.27in;
+                height: 11.69in;
+                padding: 0.8in;
             }
 
             .preview-label {
@@ -382,7 +1184,7 @@
     <div id="loading-screen">
         <img src="pu_logo.png" alt="Presidency University Logo" class="loading-logo">
         <div class="loading-text">Presidency University</div>
-        <div class="loading-subtext">Cover Page Generator</div>
+        <div class="loading-subtext">Academic Tools Suite</div>
         <div class="loading-spinner"></div>
     </div>
 
@@ -391,9 +1193,21 @@
             <img src="pu_logo.png" alt="PU Logo" class="header-logo">
             <div class="header-texts">
                 <span class="header-title">Presidency University</span>
-                <span class="header-subtitle">Cover Page Generator</span>
+                <span class="header-subtitle">Academic Tools Suite</span>
             </div>
         </div>
+
+        <!-- Navigation Section -->
+        <nav class="header-nav">
+            <ul class="nav-list">
+                <li class="nav-item active">
+                    <a href="#" class="nav-link" onclick="switchTool('cover-maker')">Cover Page Maker</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="switchTool('calculator')">Installment Fee Calculator</a>
+                </li>
+            </ul>
+        </nav>
 
         <div class="header-right">
             <p class="creator"><span class="header-subtitle">A creation of </span><a
@@ -403,146 +1217,265 @@
     </header>
 
     <main>
-        <div id="main-content" style="width: 100%; max-width: 1400px; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 20px;">
-            <div class="form-container">
-                <h2>Enter Your Info</h2>
-                <div class="form-group">
-                    <label for="department">Department Name:</label>
-                    <select id="department">
-                        <option value="Department of Computer Science & Engineering">Computer Science & Engineering
-                        </option>
-                        <option value="Department of Electrical & Electronic Engineering">Electrical & Electronic
-                            Engineering</option>
-                        <option value="Department of Business Administration">Business Administration</option>
-                        <option value="Department of Law">Law</option>
-                        <option value="Department of English">English</option>
-                        <option value="Department of Economics">Economics</option>
-                        <option value="Department of Civil Engineering">Civil Engineering</option>
-                        <option value="Other">Other (Enter below)</option>
-                    </select>
-                    <input type="text" id="department-other" placeholder="Enter other department (if 'Other' selected)"
-                        style="display:none; margin-top: 5px;">
+        <div id="main-content">
+            <!-- Cover Page Maker Section -->
+            <div id="cover-maker" class="cover-maker-container">
+                <div class="form-container">
+                    <h2>Enter Your Information</h2>
+                    
+                    <div class="form-content">
+                        <div class="form-group">
+                            <label for="department">Department Name:</label>
+                            <select id="department">
+                                <option value="Department of Computer Science & Engineering">Computer Science & Engineering
+                                </option>
+                                <option value="Department of Electrical & Electronic Engineering">Electrical & Electronic
+                                    Engineering</option>
+                                <option value="Department of Business Administration">Business Administration</option>
+                                <option value="Department of Law">Law</option>
+                                <option value="Department of English">English</option>
+                                <option value="Department of Economics">Economics</option>
+                                <option value="Department of Civil Engineering">Civil Engineering</option>
+                                <option value="Other">Other (Enter below)</option>
+                            </select>
+                            <input type="text" id="department-other" placeholder="Enter other department (if 'Other' selected)"
+                                style="display:none; margin-top: 5px;">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reportType">Report Type (e.g., Assignment):</label>
+                            <select id="reportType">
+                                <option value="Assignment">Assignment</option>
+                                <option value="Lab Report">Lab Report</option>
+                                <option value="Project">Project</option>
+                                <option value="Term Paper">Term Paper</option>
+                                <option value="Thesis Paper">Thesis Paper</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reportTitle">Report Title (Optional):</label>
+                            <input type="text" id="reportTitle" placeholder="Design and Implementation of Cover Page Maker">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="courseTitle">Course Title:</label>
+                            <input type="text" id="courseTitle" placeholder="Calculus I">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="courseCode">Course Code:</label>
+                            <input type="text" id="courseCode" placeholder="MAT123">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teacherName">Teacher Name:</label>
+                            <input type="text" id="teacherName" placeholder="Nafia Mollik">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="designation">Designation:</label>
+                            <select id="designation">
+                                <option value="Lecturer">Lecturer</option>
+                                <option value="Senior Lecturer">Senior Lecturer</option>
+                                <option value="Assistant Professor">Assistant Professor</option>
+                                <option value="Associate Professor">Associate Professor</option>
+                                <option value="Professor">Professor</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentName">Student Name:</label>
+                            <input type="text" id="studentName" placeholder="MHB">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="studentID">Student ID:</label>
+                            <input type="text" id="studentID" placeholder="252***038">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="section">Section:</label>
+                            <input type="text" id="section" placeholder="03">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="submissionDate">Date of Submission:</label>
+                            <input type="date" id="submissionDate">
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <button class="btn" onclick="window.print()" title="Shortcut: Ctrl+P">Print Cover Page</button>
+                        <button class="btn reset-btn-cover" onclick="resetForm()" title="Shortcut: Ctrl+R">Reset Form</button>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="reportType">Report Type (e.g., Assignment):</label>
-                    <select id="reportType">
-                        <option value="Assignment">Assignment</option>
-                        <option value="Lab Report">Lab Report</option>
-                        <option value="Project">Project</option>
-                        <option value="Term Paper">Term Paper</option>
-                        <option value="Thesis Paper">Thesis Paper</option>
-                    </select>
-                </div>
+                <div class="page-container" id="coverPage">
+                    <div class="preview-label">Print Preview</div>
+                    <div class="logo-area">
+                        <img src="pu_logo.png" alt="Presidency University Logo" class="university-logo">
+                    </div>
 
-                <div class="form-group">
-                    <label for="reportTitle">Report Title (Optional):</label>
-                    <input type="text" id="reportTitle" placeholder="Design and Implementation of Cover Page Maker">
-                </div>
+                    <h1 class="university-name">Presidency University</h1>
+                    <p class="department" id="pDepartment">Department of Computer Science & Engineering</p>
 
-                <div class="form-group">
-                    <label for="courseTitle">Course Title:</label>
-                    <input type="text" id="courseTitle" placeholder="Calculus I">
-                </div>
+                    <div class="assignment-info">
+                        <h2 class="assignment-title" id="pReportType">Assignment</h2>
+                        <p id="pReportTitle"></p>
+                        <p>Course Title: <b id="pCourseTitle">Calculus I</b></p>
+                        <p>Course Code: <b id="pCourseCode">MAT123</b></p>
+                    </div>
 
-                <div class="form-group">
-                    <label for="courseCode">Course Code:</label>
-                    <input type="text" id="courseCode" placeholder="MAT123">
-                </div>
+                    <div class="submission-section submitted-to">
+                        <h3 class="section-heading">Submitted to:</h3>
+                        <p><b id="pTeacherName">Nafia Mollik</b></p>
+                        <p id="pDesignation">Lecturer</p>
+                        <p id="pSubmittedDepartment">Department of Computer Science & Engineering</p>
+                        <p>Presidency University</p>
+                    </div>
 
-                <div class="form-group">
-                    <label for="teacherName">Teacher Name:</label>
-                    <input type="text" id="teacherName" placeholder="Nafia Mollik">
-                </div>
+                    <div class="submission-section submitted-by">
+                        <h3 class="section-heading">Submitted by:</h3>
+                        <p><b id="pStudentName">MHB</b></p>
+                        <p>ID: <b id="pStudentID">252***038</b></p>
+                        <p>Section: <b id="pSection">03</b></p>
+                    </div>
 
-                <div class="form-group">
-                    <label for="designation">Designation:</label>
-                    <select id="designation">
-                        <option value="Lecturer">Lecturer</option>
-                        <option value="Senior Lecturer">Senior Lecturer</option>
-                        <option value="Assistant Professor">Assistant Professor</option>
-                        <option value="Associate Professor">Associate Professor</option>
-                        <option value="Professor">Professor</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="studentName">Student Name:</label>
-                    <input type="text" id="studentName" placeholder="MHB">
-                </div>
-
-                <div class="form-group">
-                    <label for="studentID">Student ID:</label>
-                    <input type="text" id="studentID" placeholder="252***038">
-                </div>
-
-                <div class="form-group">
-                    <label for="section">Section:</label>
-                    <input type="text" id="section" placeholder="03">
-                </div>
-
-                <div class="form-group">
-                    <label for="submissionDate">Date of Submission:</label>
-                    <input type="date" id="submissionDate">
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn" onclick="window.print()" title="Shortcut: Ctrl+P">Print Cover Page</button>
-                    <button class="btn" onclick="resetForm()" title="Shortcut: Ctrl+R">Reset Form</button>
+                    <p class="submission-date">Date of Submission: <b id="pDate">28 October 2025</b></p>
                 </div>
             </div>
 
-            <div class="page-container" id="coverPage">
-                <div class="preview-label">Print Preview</div>
-                <div class="logo-area">
-                    <img src="pu_logo.png" alt="Presidency University Logo" class="university-logo">
+            <!-- Installment Calculator Section -->
+            <div id="calculator" class="calculator-container">
+                <h2 class="calculator-title">Tuition Fee Breakdown Calculator</h2>
+                <p class="calculator-subtitle">Enter your fee details to calculate the installment plan</p>
+                
+                <div class="calculator-content">
+                    <div class="calculator-inputs">
+                        <div class="input-group-calc">
+                            <label for="tuitionFee">
+                                <i class="fas fa-graduation-cap"></i> Tuition Fee (BDT)
+                            </label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <input type="number" id="tuitionFee" placeholder="Enter total tuition fee" min="0">
+                            </div>
+                            <small style="color: #666; font-size: 13px; margin-top: 5px; display: block;">
+                                Enter the total tuition fee for the semester
+                            </small>
+                        </div>
+                        
+                        <div class="input-group-calc">
+                            <label for="semesterFee">
+                                <i class="fas fa-file-invoice-dollar"></i> Semester Registration Fee (BDT)
+                            </label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-file-alt"></i>
+                                <input type="number" id="semesterFee" value="5300" min="0">
+                            </div>
+                            <small style="color: #666; font-size: 13px; margin-top: 5px; display: block;">
+                                Standard semester registration fee (adjustable)
+                            </small>
+                        </div>
+                        
+                        <div class="checkbox-container-calc">
+                            <input type="checkbox" id="includeSemester" checked>
+                            <label for="includeSemester">Include Semester Registration Fee in total calculation</label>
+                        </div>
+                        
+                        <div class="btn-group-calc">
+                            <button class="calc-btn" onclick="calculateInstallments()">
+                                <i class="fas fa-calculator"></i> Calculate Installments
+                            </button>
+                            <button class="calc-btn reset-btn" onclick="resetCalculator()">
+                                <i class="fas fa-redo"></i> Reset
+                            </button>
+                        </div>
+                        
+                        <div class="info-footer">
+                            <p><i class="fas fa-info-circle"></i> All amounts are in Bangladeshi Taka (BDT)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="calculator-results">
+                        <div class="results-header">
+                            <h3>Payment Plan</h3>
+                            <div class="total-amount">
+                                <div>Total Amount</div>
+                                <div class="amount" id="totalAmount">0.00 BDT</div>
+                            </div>
+                        </div>
+                        
+                        <div class="installments-container" id="installmentsContainer">
+                            <div class="empty-state">
+                                <i class="fas fa-calculator"></i>
+                                <p>Enter your fee details and click "Calculate Installments" to see your payment plan</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <h1 class="university-name">Presidency University</h1>
-                <p class="department" id="pDepartment">Department of Computer Science & Engineering</p>
-
-                <div class="assignment-info">
-                    <h2 class="assignment-title" id="pReportType">Assignment</h2>
-                    <p id="pReportTitle"></p>
-                    <p>Course Title: <b id="pCourseTitle">Calculus I</b></p>
-                    <p>Course Code: <b id="pCourseCode">MAT123</b></p>
-                </div>
-
-                <div class="submission-section submitted-to">
-                    <h3 class="section-heading">Submitted to:</h3>
-                    <p><b id="pTeacherName">Nafia Mollik</b></p>
-                    <p id="pDesignation">Lecturer</p>
-                    <p id="pSubmittedDepartment">Department of Computer Science & Engineering</p>
-                    <p>Presidency University</p>
-                </div>
-
-                <div class="submission-section submitted-by">
-                    <h3 class="section-heading">Submitted by:</h3>
-                    <p><b id="pStudentName">MHB</b></p>
-                    <p>ID: <b id="pStudentID">252***038</b></p>
-                    <p>Section: <b id="pSection">03</b></p>
-                </div>
-
-                <p class="submission-date">Date of Submission: <b id="pDate">28 October 2025</b></p>
             </div>
         </div>
-
     </main>
 
     <script>
         // Loading screen functionality
-        window.addEventListener('load', function() {
-            // Simulate loading time (you can remove this in production)
-            setTimeout(function() {
+        window.addEventListener('load', function () {
+            setTimeout(function () {
                 const loadingScreen = document.getElementById('loading-screen');
                 loadingScreen.style.opacity = '0';
-                
-                setTimeout(function() {
+
+                setTimeout(function () {
                     loadingScreen.style.display = 'none';
                 }, 500);
-            }, 1500); // Adjust this time as needed
+            }, 1500);
         });
 
+        // Switch between tools
+        function switchTool(tool) {
+            const navItems = document.querySelectorAll('.nav-item');
+            const coverMaker = document.getElementById('cover-maker');
+            const calculator = document.getElementById('calculator');
+            
+            // Update navigation
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            // Show selected tool
+            if (tool === 'cover-maker') {
+                document.querySelector('.nav-list li:first-child').classList.add('active');
+                coverMaker.style.display = 'flex';
+                calculator.style.display = 'none';
+            } else {
+                document.querySelector('.nav-list li:last-child').classList.add('active');
+                coverMaker.style.display = 'none';
+                calculator.style.display = 'block';
+                
+                // Focus on tuition fee input when calculator opens
+                setTimeout(() => {
+                    document.getElementById('tuitionFee').focus();
+                }, 100);
+            }
+        }
+
+        // Set today's date as default for cover page
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const formattedToday = today.toISOString().split('T')[0];
+            const dateInput = document.getElementById('submissionDate');
+            
+            if (dateInput) {
+                dateInput.value = formattedToday;
+            }
+            
+            // Initialize cover page with current date
+            updateCover();
+            
+            // Initialize calculator as hidden
+            document.getElementById('calculator').style.display = 'none';
+        });
+
+        // Cover Page Functions
         function getInputValue(id, defaultValue) {
             const element = document.getElementById(id);
             if (!element) return defaultValue;
@@ -600,17 +1533,23 @@
             document.getElementById("pStudentID").innerText = studentID;
             document.getElementById("pSection").innerText = section;
 
-            let formattedDate = "28 October 2025";
+            // Date handling
+            let formattedDate = "No date specified";
             if (dateInput) {
                 const [year, month, day] = dateInput.split('-').map(Number);
                 const dateObj = new Date(year, month - 1, day);
 
-                const options = {
+                formattedDate = dateObj.toLocaleDateString('en-GB', {
                     year: 'numeric',
                     month: 'long',
                     day: 'numeric'
-                };
-                formattedDate = dateObj.toLocaleDateString('en-GB', options);
+                });
+            } else {
+                formattedDate = new Date().toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
             }
             document.getElementById("pDate").innerText = formattedDate;
         }
@@ -622,45 +1561,246 @@
                 } else if (element.tagName === 'SELECT') {
                     element.selectedIndex = 0;
                 } else if (element.type === 'date') {
-                    element.value = "";
+                    const today = new Date();
+                    const formattedToday = today.toISOString().split('T')[0];
+                    element.value = formattedToday;
                 }
             });
             document.getElementById("department-other").style.display = 'none';
             updateCover();
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const formControls = document.querySelectorAll('.form-container input, .form-container select');
+        // Calculator Functions
+        function formatBDT(number) {
+            return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
+        
+        function calculateInstallments() {
+            // Get input values
+            const tuitionInput = document.getElementById('tuitionFee');
+            const semesterInput = document.getElementById('semesterFee');
+            const tuition = parseFloat(tuitionInput.value) || 0;
+            const semesterFee = parseFloat(semesterInput.value) || 0;
+            const includeSemester = document.getElementById('includeSemester').checked;
+            
+            // Validate tuition fee
+            if (!tuition || tuition <= 0) {
+                alert("Please enter a valid Tuition Fee amount!");
+                tuitionInput.focus();
+                tuitionInput.style.borderColor = '#ff0000';
+                return;
+            } else {
+                tuitionInput.style.borderColor = '#ccc';
+            }
+            
+            // Calculate total
+            const total = includeSemester ? tuition + semesterFee : tuition;
+            
+            // Update total amount display
+            document.getElementById('totalAmount').textContent = formatBDT(total) + " BDT";
+            
+            // Generate installment cards
+            const installmentsContainer = document.getElementById('installmentsContainer');
+            installmentsContainer.innerHTML = '';
+            
+            // Check if we need to show registration fee separately
+            if (includeSemester && semesterFee > 0) {
+                // Show registration fee as first card
+                const regCard = document.createElement('div');
+                regCard.className = 'installment-card';
+                regCard.style.borderLeftColor = '#e74c3c'; // Different color for registration
+                regCard.innerHTML = `
+                    <div class="installment-title">
+                        <span><i class="fas fa-file-invoice-dollar" style="margin-right: 8px;"></i>Semester Registration Fee</span>
+                        <span class="percentage-badge">At Admission</span>
+                    </div>
+                    <div class="installment-amount" style="color: #e74c3c;">${formatBDT(semesterFee)} BDT</div>
+                `;
+                installmentsContainer.appendChild(regCard);
+                
+                // Now calculate tuition installments (only tuition fee divided into 3 parts)
+                const installments = [
+                    { name: "1st Installment (Tuition)", percent: 50, amount: tuition * 0.50 },
+                    { name: "2nd Installment (Tuition)", percent: 30, amount: tuition * 0.30 },
+                    { name: "3rd Installment (Tuition)", percent: 20, amount: tuition * 0.20 }
+                ];
+                
+                installments.forEach((installment, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'installment-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    
+                    card.innerHTML = `
+                        <div class="installment-title">
+                            <span>${installment.name}</span>
+                            <span class="percentage-badge">${installment.percent}% of Tuition</span>
+                        </div>
+                        <div class="installment-amount">${formatBDT(installment.amount)} BDT</div>
+                    `;
+                    
+                    installmentsContainer.appendChild(card);
+                });
+                
+                // Add summary card
+                const summaryCard = document.createElement('div');
+                summaryCard.className = 'installment-card';
+                summaryCard.style.backgroundColor = '#f8f9fa';
+                summaryCard.style.borderLeftColor = '#000000';
+                summaryCard.innerHTML = `
+                    <div class="installment-title">
+                        <span><i class="fas fa-calculator" style="margin-right: 8px;"></i>Summary</span>
+                        <span class="percentage-badge">Total Breakdown</span>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Registration Fee:</span>
+                            <span>${formatBDT(semesterFee)} BDT</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <span>Tuition Fee (3 installments):</span>
+                            <span>${formatBDT(tuition)} BDT</span>
+                        </div>
+                        <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
+                        <div style="display: flex; justify-content: space-between; font-weight: bold;">
+                            <span>Grand Total:</span>
+                            <span>${formatBDT(total)} BDT</span>
+                        </div>
+                    </div>
+                `;
+                installmentsContainer.appendChild(summaryCard);
+                
+            } else {
+                // If not including registration fee or it's 0, show only tuition installments
+                const installments = [
+                    { name: "1st Installment", percent: 50, amount: tuition * 0.50 },
+                    { name: "2nd Installment", percent: 30, amount: tuition * 0.30 },
+                    { name: "3rd Installment", percent: 20, amount: tuition * 0.20 }
+                ];
+                
+                installments.forEach((installment, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'installment-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    
+                    card.innerHTML = `
+                        <div class="installment-title">
+                            <span>${installment.name}</span>
+                            <span class="percentage-badge">${installment.percent}%</span>
+                        </div>
+                        <div class="installment-amount">${formatBDT(installment.amount)} BDT</div>
+                    `;
+                    
+                    installmentsContainer.appendChild(card);
+                });
+                
+                // Add tuition total summary
+                const summaryCard = document.createElement('div');
+                summaryCard.className = 'installment-card';
+                summaryCard.style.backgroundColor = '#f8f9fa';
+                summaryCard.style.borderLeftColor = '#000000';
+                summaryCard.innerHTML = `
+                    <div class="installment-title">
+                        <span><i class="fas fa-info-circle" style="margin-right: 8px;"></i>Note</span>
+                    </div>
+                    <div style="color: #666; font-size: 14px; margin-top: 5px;">
+                        <p>Semester registration fee is not included in this calculation.</p>
+                        <p>Total Tuition Fee: <strong>${formatBDT(tuition)} BDT</strong></p>
+                    </div>
+                `;
+                installmentsContainer.appendChild(summaryCard);
+            }
+        }
 
+        // Reset Calculator Function
+        function resetCalculator() {
+            // Reset input fields
+            document.getElementById('tuitionFee').value = '';
+            document.getElementById('semesterFee').value = '5300';
+            document.getElementById('includeSemester').checked = true;
+            
+            // Reset results display
+            document.getElementById('totalAmount').textContent = '0.00 BDT';
+            
+            const installmentsContainer = document.getElementById('installmentsContainer');
+            installmentsContainer.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-calculator"></i>
+                    <p>Enter your fee details and click "Calculate Installments" to see your payment plan</p>
+                </div>
+            `;
+            
+            // Focus on tuition fee input
+            document.getElementById('tuitionFee').focus();
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Cover page event listeners
+            const formControls = document.querySelectorAll('.form-container input, .form-container select');
             formControls.forEach(control => {
                 control.addEventListener('input', updateCover);
                 control.addEventListener('change', updateCover);
             });
 
-            updateCover();
-            const headerLeft = document.querySelector('.header-left');
-            if (headerLeft) {
-                headerLeft.addEventListener('click', function (e) {
-                    e.preventDefault();
-                });
-            }
+            // Department other input visibility
+            document.getElementById('department').addEventListener('change', function() {
+                const otherInput = document.getElementById('department-other');
+                if (this.value === 'Other') {
+                    otherInput.style.display = 'block';
+                } else {
+                    otherInput.style.display = 'none';
+                }
+                updateCover();
+            });
 
-            document.addEventListener('keydown', function (e) {
+            updateCover();
+
+            // Calculator event listeners
+            document.getElementById('tuitionFee').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calculateInstallments();
+                }
+            });
+            
+            document.getElementById('semesterFee').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    calculateInstallments();
+                }
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
                 if (e.ctrlKey || e.metaKey) {
                     switch (e.key.toLowerCase()) {
                         case 'p':
                             e.preventDefault();
-                            window.print();
+                            if (document.getElementById('cover-maker').style.display !== 'none') {
+                                window.print();
+                            }
                             break;
                         case 'r':
                             e.preventDefault();
-                            resetForm();
+                            if (document.getElementById('cover-maker').style.display !== 'none') {
+                                resetForm();
+                            }
+                            break;
+                        case 'enter':
+                            e.preventDefault();
+                            if (document.getElementById('calculator').style.display !== 'none') {
+                                calculateInstallments();
+                            }
                             break;
                     }
+                }
+                
+                // Tab navigation for calculator
+                if (e.key === 'Tab' && document.activeElement === document.body && 
+                    document.getElementById('calculator').style.display !== 'none') {
+                    document.getElementById('tuitionFee').focus();
+                    e.preventDefault();
                 }
             });
         });
     </script>
 </body>
-
 </html>
