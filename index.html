@@ -607,6 +607,133 @@
             display: none;
         }
 
+        /* Group Report Table Styles */
+        .group-members-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+
+        .group-members-table th {
+            background-color: #f0f0f0;
+            padding: 8px 5px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .group-members-table td {
+            padding: 6px 5px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .group-members-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .group-members-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Toggle Switch Styles */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #000000;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+
+        .toggle-label {
+            font-weight: bold;
+            color: #2c3e50;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Textarea Styles */
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+            box-sizing: border-box;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        textarea:hover {
+            border-color: #bdc3c7;
+            background-color: #fff;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #000000;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea::placeholder {
+            color: #95a5a6;
+            font-style: italic;
+        }
+
+        /* Group Section Transition */
+        #groupSection {
+            animation: slideDown 0.3s ease;
+        }
+
         /* Installment Calculator Styles */
         .calculator-container {
             background: #fff;
@@ -1064,6 +1191,15 @@
             .btn-group-calc {
                 flex-direction: column;
             }
+            
+            .group-members-table {
+                font-size: 12px;
+            }
+            
+            .group-members-table th,
+            .group-members-table td {
+                padding: 4px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1103,10 +1239,14 @@
                 width: calc(100% - 20px);
             }
             
-            input, select {
+            input, select, textarea {
                 padding: 12px 14px;
                 font-size: 15px;
                 min-height: 44px;
+            }
+            
+            textarea {
+                min-height: 80px;
             }
             
             .btn {
@@ -1148,6 +1288,10 @@
             .university-logo {
                 width: 150px;
             }
+            
+            .group-members-table {
+                font-size: 11px;
+            }
         }
 
         /* Print styles */
@@ -1174,6 +1318,17 @@
 
             .preview-label {
                 display: none;
+            }
+            
+            .group-members-table th,
+            .group-members-table td {
+                border: 1px solid #000 !important;
+            }
+            
+            .group-members-table tr:nth-child(even) {
+                background-color: #f0f0f0 !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
             }
         }
     </style>
@@ -1227,10 +1382,8 @@
                         <div class="form-group">
                             <label for="department">Department Name:</label>
                             <select id="department">
-                                <option value="Department of Computer Science & Engineering">Computer Science & Engineering
-                                </option>
-                                <option value="Department of Electrical & Electronic Engineering">Electrical & Electronic
-                                    Engineering</option>
+                                <option value="Department of Computer Science & Engineering">Computer Science & Engineering</option>
+                                <option value="Department of Electrical & Electronic Engineering">Electrical & Electronic Engineering</option>
                                 <option value="Department of Business Administration">Business Administration</option>
                                 <option value="Department of Law">Law</option>
                                 <option value="Department of English">English</option>
@@ -1238,8 +1391,7 @@
                                 <option value="Department of Civil Engineering">Civil Engineering</option>
                                 <option value="Other">Other (Enter below)</option>
                             </select>
-                            <input type="text" id="department-other" placeholder="Enter other department (if 'Other' selected)"
-                                style="display:none; margin-top: 5px;">
+                            <input type="text" id="department-other" placeholder="Enter other department (if 'Other' selected)" style="display:none; margin-top: 5px;">
                         </div>
 
                         <div class="form-group">
@@ -1284,19 +1436,43 @@
                             </select>
                         </div>
 
+                        <!-- Group Report Toggle -->
                         <div class="form-group">
-                            <label for="studentName">Student Name:</label>
-                            <input type="text" id="studentName" placeholder="MHB">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                <input type="checkbox" id="isGroupReport" style="width: 18px; height: 18px;">
+                                <label for="isGroupReport" style="font-weight: bold; color: #2c3e50; margin: 0; cursor: pointer;">
+                                    This is a Group Report
+                                </label>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="studentID">Student ID:</label>
-                            <input type="text" id="studentID" placeholder="252***038">
+                        <!-- Individual Student Section (default) -->
+                        <div id="individualSection">
+                            <div class="form-group">
+                                <label for="studentName">Student Name:</label>
+                                <input type="text" id="studentName" placeholder="MHB">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studentID">Student ID:</label>
+                                <input type="text" id="studentID" placeholder="252***038">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="section">Section:</label>
+                                <input type="text" id="section" placeholder="03">
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="section">Section:</label>
-                            <input type="text" id="section" placeholder="03">
+                        <!-- Group Members Section (hidden by default) -->
+                        <div id="groupSection" style="display: none;">
+                            <div class="form-group">
+                                <label for="groupMembers">Team Members (One per line):</label>
+                                <textarea id="groupMembers" rows="5" placeholder="Enter each team member on a new line in format: Name, ID, Section&#10;Example:&#10;MHB, 252***038, 03&#10;John Doe, 252***039, 03&#10;Jane Smith, 252***040, 03"></textarea>
+                                <small style="color: #666; font-size: 12px; display: block; margin-top: 5px;">
+                                    Format: Name, ID, Section (comma separated) - One member per line
+                                </small>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -1337,9 +1513,12 @@
 
                     <div class="submission-section submitted-by">
                         <h3 class="section-heading">Submitted by:</h3>
-                        <p><b id="pStudentName">MHB</b></p>
-                        <p>ID: <b id="pStudentID">252***038</b></p>
-                        <p>Section: <b id="pSection">03</b></p>
+                        <!-- Individual or group content will be inserted here by JavaScript -->
+                        <div id="pSubmittedByContent">
+                            <p><b id="pStudentName">MHB</b></p>
+                            <p>ID: <b id="pStudentID">252***038</b></p>
+                            <p>Section: <b id="pSection">03</b></p>
+                        </div>
                     </div>
 
                     <p class="submission-date">Date of Submission: <b id="pDate">28 October 2025</b></p>
@@ -1499,6 +1678,58 @@
             return trimmedValue || placeholder || defaultValue;
         }
 
+        // Toggle between individual and group report
+        function toggleGroupReport() {
+            const isGroup = document.getElementById('isGroupReport').checked;
+            const individualSection = document.getElementById('individualSection');
+            const groupSection = document.getElementById('groupSection');
+            
+            if (isGroup) {
+                individualSection.style.display = 'none';
+                groupSection.style.display = 'block';
+            } else {
+                individualSection.style.display = 'block';
+                groupSection.style.display = 'none';
+            }
+            
+            updateCover();
+        }
+
+        // Parse group members from textarea
+        function parseGroupMembers() {
+            const textarea = document.getElementById('groupMembers');
+            const lines = textarea.value.split('\n');
+            const members = [];
+            
+            for (let line of lines) {
+                line = line.trim();
+                if (line) {
+                    const parts = line.split(',').map(part => part.trim());
+                    if (parts.length >= 3) {
+                        members.push({
+                            name: parts[0] || '',
+                            id: parts[1] || '',
+                            section: parts[2] || ''
+                        });
+                    } else if (parts.length === 2) {
+                        members.push({
+                            name: parts[0] || '',
+                            id: parts[1] || '',
+                            section: ''
+                        });
+                    } else if (parts.length === 1) {
+                        members.push({
+                            name: parts[0] || '',
+                            id: '',
+                            section: ''
+                        });
+                    }
+                }
+            }
+            
+            return members;
+        }
+
         function updateCover() {
             const dept = getInputValue("department", "Department of Computer Science & Engineering");
             const reportType = getInputValue("reportType", "Assignment");
@@ -1507,13 +1738,11 @@
             const courseCode = getInputValue("courseCode", "MAT123");
             const teacherName = getInputValue("teacherName", "Nafia Mollik");
             const designation = getInputValue("designation", "Lecturer");
-            const studentName = getInputValue("studentName", "MHB");
-            const studentID = getInputValue("studentID", "252***038");
-            const section = getInputValue("section", "03");
+            const isGroupReport = document.getElementById("isGroupReport").checked;
             const dateInput = document.getElementById("submissionDate").value;
-
+            
             const pReportTitleElement = document.getElementById("pReportTitle");
-
+            
             if (reportTitle) {
                 pReportTitleElement.innerText = reportTitle;
                 pReportTitleElement.style.display = 'block';
@@ -1529,9 +1758,51 @@
             document.getElementById("pCourseCode").innerText = courseCode;
             document.getElementById("pTeacherName").innerText = teacherName;
             document.getElementById("pDesignation").innerText = designation;
-            document.getElementById("pStudentName").innerText = studentName;
-            document.getElementById("pStudentID").innerText = studentID;
-            document.getElementById("pSection").innerText = section;
+            
+            // Handle submitted by section
+            const submittedByContent = document.getElementById("pSubmittedByContent");
+            
+            if (isGroupReport) {
+                const members = parseGroupMembers();
+                
+                if (members.length > 0) {
+                    let tableHTML = `
+                        <table class="group-members-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40%;">Name</th>
+                                    <th style="width: 40%;">ID</th>
+                                    <th style="width: 20%;">Section</th>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                    
+                    members.forEach(member => {
+                        tableHTML += `
+                            <tr>
+                                <td><b>${member.name || ''}</b></td>
+                                <td>${member.id || ''}</td>
+                                <td>${member.section || ''}</td>
+                            </tr>`;
+                    });
+                    
+                    tableHTML += `</tbody></table>`;
+                    submittedByContent.innerHTML = tableHTML;
+                } else {
+                    submittedByContent.innerHTML = '<p><i>No team members added</i></p>';
+                }
+            } else {
+                // Individual report
+                const studentName = getInputValue("studentName", "MHB");
+                const studentID = getInputValue("studentID", "252***038");
+                const section = getInputValue("section", "03");
+                
+                submittedByContent.innerHTML = `
+                    <p><b id="pStudentName">${studentName}</b></p>
+                    <p>ID: <b id="pStudentID">${studentID}</b></p>
+                    <p>Section: <b id="pSection">${section}</b></p>
+                `;
+            }
 
             // Date handling
             let formattedDate = "No date specified";
@@ -1555,8 +1826,9 @@
         }
 
         function resetForm() {
-            document.querySelectorAll('.form-container input, .form-container select').forEach(element => {
-                if (element.tagName === 'INPUT' && element.type !== 'date') {
+            // Reset all form elements
+            document.querySelectorAll('.form-container input, .form-container select, .form-container textarea').forEach(element => {
+                if (element.tagName === 'INPUT' && element.type === 'text') {
                     element.value = "";
                 } else if (element.tagName === 'SELECT') {
                     element.selectedIndex = 0;
@@ -1564,9 +1836,19 @@
                     const today = new Date();
                     const formattedToday = today.toISOString().split('T')[0];
                     element.value = formattedToday;
+                } else if (element.tagName === 'TEXTAREA') {
+                    element.value = "";
                 }
             });
+            
+            // Reset group toggle
+            document.getElementById('isGroupReport').checked = false;
+            document.getElementById('individualSection').style.display = 'block';
+            document.getElementById('groupSection').style.display = 'none';
+            
+            // Hide other department input
             document.getElementById("department-other").style.display = 'none';
+            
             updateCover();
         }
 
@@ -1736,12 +2018,15 @@
         // Event Listeners
         document.addEventListener('DOMContentLoaded', () => {
             // Cover page event listeners
-            const formControls = document.querySelectorAll('.form-container input, .form-container select');
+            const formControls = document.querySelectorAll('.form-container input, .form-container select, .form-container textarea');
             formControls.forEach(control => {
                 control.addEventListener('input', updateCover);
                 control.addEventListener('change', updateCover);
             });
-
+            
+            // Group report toggle listener
+            document.getElementById('isGroupReport').addEventListener('change', toggleGroupReport);
+            
             // Department other input visibility
             document.getElementById('department').addEventListener('change', function() {
                 const otherInput = document.getElementById('department-other');
