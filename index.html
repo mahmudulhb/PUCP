@@ -488,7 +488,7 @@
             transform: translateY(0);
         }
 
-        #department-other {
+        #department-other, #designation-other {
             margin-top: 8px;
             border-top: 2px dashed #ddd;
             border-radius: 0 0 8px 8px;
@@ -1437,7 +1437,9 @@
                                 <option value="Assistant Professor">Assistant Professor</option>
                                 <option value="Associate Professor">Associate Professor</option>
                                 <option value="Professor">Professor</option>
+                                <option value="Other">Other (Specify below)</option>
                             </select>
+                            <input type="text" id="designation-other" placeholder="Enter other designation (if 'Other' selected)" style="display:none; margin-top: 5px;">
                         </div>
 
                         <!-- Group Report Toggle -->
@@ -1663,9 +1665,24 @@
             const element = document.getElementById(id);
             if (!element) return defaultValue;
 
+            // Handle department with "Other" option
             if (id === "department") {
                 const selectValue = element.value;
                 const otherInput = document.getElementById("department-other");
+
+                if (selectValue === "Other") {
+                    otherInput.style.display = 'block';
+                    return otherInput.value.trim() || otherInput.placeholder.trim() || defaultValue;
+                } else {
+                    otherInput.style.display = 'none';
+                    return selectValue || defaultValue;
+                }
+            }
+
+            // Handle designation with "Other" option
+            if (id === "designation") {
+                const selectValue = element.value;
+                const otherInput = document.getElementById("designation-other");
 
                 if (selectValue === "Other") {
                     otherInput.style.display = 'block';
@@ -1853,6 +1870,9 @@
             // Hide other department input
             document.getElementById("department-other").style.display = 'none';
             
+            // Hide other designation input
+            document.getElementById("designation-other").style.display = 'none';
+            
             updateCover();
         }
 
@@ -2034,6 +2054,17 @@
             // Department other input visibility
             document.getElementById('department').addEventListener('change', function() {
                 const otherInput = document.getElementById('department-other');
+                if (this.value === 'Other') {
+                    otherInput.style.display = 'block';
+                } else {
+                    otherInput.style.display = 'none';
+                }
+                updateCover();
+            });
+
+            // Designation other input visibility
+            document.getElementById('designation').addEventListener('change', function() {
+                const otherInput = document.getElementById('designation-other');
                 if (this.value === 'Other') {
                     otherInput.style.display = 'block';
                 } else {
