@@ -1489,7 +1489,7 @@
 
                     <div class="btn-group">
                         <button class="btn" onclick="window.print()" title="Shortcut: Ctrl+P">Print Cover Page</button>
-                        <button class="btn reset-btn-cover" onclick="resetForm()" title="Shortcut: Ctrl+R">Reset Form</button>
+                        <button class="btn reset-btn-cover" onclick="resetForm()" title="Shortcut: Ctrl+Z">Reset Form</button>
                     </div>
                 </div>
 
@@ -2098,7 +2098,7 @@
                                 window.print();
                             }
                             break;
-                        case 'r':
+                        case 'z':
                             e.preventDefault();
                             if (document.getElementById('cover-maker').style.display !== 'none') {
                                 resetForm();
