@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="google-site-verification" content="PI3BEy1pjJPN3SQ-WGuri5o8r7tWY4x7YY_sjjGc21E" />
     <title>PU | Academic Tools Suite</title>
     <link rel="icon" type="image/png" href="fav.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1162,6 +1163,12 @@
                             </select>
                         </div>
 
+                        <!-- NEW: Report Number field -->
+                        <div class="form-group">
+                            <label for="reportNumber">Report Number (Optional):</label>
+                            <input type="text" id="reportNumber" placeholder="e.g., I, II, 1, 2">
+                        </div>
+
                         <div class="form-group">
                             <label for="reportTitle">Report Title (Optional):</label>
                             <input type="text" id="reportTitle" placeholder="Design and Implementation of Cover Page Maker">
@@ -1694,6 +1701,7 @@
         function updateCover() {
             const dept = getInputValue("department", "Department of Computer Science & Engineering");
             const reportType = getInputValue("reportType", "Assignment");
+            const reportNumber = document.getElementById("reportNumber").value.trim(); // NEW
             const reportTitle = document.getElementById("reportTitle").value.trim();
             const courseTitle = getInputValue("courseTitle", "Calculus I");
             const courseCode = getInputValue("courseCode", "MAT123");
@@ -1702,11 +1710,17 @@
             const isGroupReport = document.getElementById("isGroupReport").checked;
             const dateInput = document.getElementById("submissionDate").value;
             
+            // Combine report type and number if number is provided
+            let displayReportType = reportType;
+            if (reportNumber) {
+                displayReportType = reportType + " - " + reportNumber;
+            }
+            document.getElementById("pReportType").innerText = displayReportType;
+
             document.getElementById("pReportTitle").innerText = reportTitle;
             document.getElementById("pReportTitle").style.display = reportTitle ? 'block' : 'none';
             document.getElementById("pDepartment").innerText = dept;
             document.getElementById("pSubmittedDepartment").innerText = dept;
-            document.getElementById("pReportType").innerText = reportType;
             document.getElementById("pCourseTitle").innerText = courseTitle;
             document.getElementById("pCourseCode").innerText = courseCode;
             document.getElementById("pTeacherName").innerText = teacherName;
@@ -1749,6 +1763,7 @@
             document.getElementById('section').value = '';
             document.getElementById('reportTitle').value = '';
             document.getElementById('groupMembers').value = '';
+            document.getElementById('reportNumber').value = ''; // NEW
             
             // Reset selects to first option
             document.getElementById('department').selectedIndex = 0;
@@ -1983,4 +1998,3 @@
     </script>
 </body>
 </html>
-
